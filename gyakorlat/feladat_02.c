@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
+    
     fprintf(stdout, "Standard kimenet\n");
     fprintf(stderr, "Standard hiba\n");
 

@@ -4,13 +4,13 @@
 
 int main(int argc, char *argv[]) {
 
-    printf("%s\n", getenv("LOGNAME")); 
     // környezeti változó; aktuális felhasználó nevének kiírása
+    printf("%s\n", getenv("LOGNAME")); 
 
-    system("ls");
     // kilistázza az aktuális elérési helyen lévő fájlokat
     // a vezérlés átkerül a meghívott programhoz, majd ha lefutott
     // vissza a rendszerhez
+    system("ls");
 
     return 0;
 }

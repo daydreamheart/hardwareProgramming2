@@ -1,5 +1,4 @@
-// Környezeti változók lekérdezése és beállítása
-// parancssori argumentumokkal
+// Környezeti változók lekérdezése és beállítása parancssori argumentumokkal
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,22 +9,22 @@
 int main(int argc, char* argv[]) {
     char *var, *value;
 
-    if(argc == 1) {
+    if (argc == 1) {
         printf(" %s: I need an argument. \n", argv[0]);
         return NoArg;
     }
 
-    if(argc == 2) {
+    if (argc == 2) {
         var = argv[1];
         value = getenv(var);
 
-        if(value != NULL)
+        if (value != NULL)
             printf("$%s=%s\n", var, value);
         else
             printf("$%s has no value\n", var);
     }
 
-    if(argc == 3) {
+    if (argc == 3) {
         char *string;
         var = argv[1];
         value = argv[2];

@@ -1,7 +1,8 @@
 // Titkosító program
-// Magyar Melinda Barbara - E5JCB7
 // bemenet.txt tartalma, amivel teszteltem: 123abc
 // math.h miatt -lm kapcsolóval kell fordítani - gcc nev.c -o nev -lm
+
+// Magyar Melinda Barbara
 
 #include <unistd.h>
 #include <sys/stat.h>
@@ -15,7 +16,7 @@
 #define BlockSize 1024
 
 // első és utolsó bit cseréje
-char* swapBits (int number) {
+char* swapBits(int number) {
     static char binary[32];
     sprintf(binary, "%d", number);
     int size = strlen(binary);
@@ -27,28 +28,28 @@ char* swapBits (int number) {
    return binary;  
 }
 
-// átváltás kettes számrendszer beli számra
-int decimalToBinary (int decimal) {
+// átváltás kettes számrendszerbeli számra
+int decimalToBinary(int decimal) {
     int size = 0, number = 0;
     int binary[32], tmp[32];
 
-    while(decimal > 0) {
+    while (decimal > 0) {
         tmp[size++] = decimal % 2;
         decimal /= 2;
     }
 
-    for(int i = size-1, s = 0; i >= 0; i--) 
+    for (int i = size-1, s = 0; i >= 0; i--) 
         binary[s++] = tmp[i];
 
     // int tömb átalakítása intiger típussá
-    for(int j = 0; j < size; j++)
+    for (int j = 0; j < size; j++)
         number = 10 * number + binary[j];
 
     return number;
 }
 
-// átváltás tizes számrendszer beli számra
-int binaryToDecimal (int binary) {
+// átváltás tizes számrendszerbeli számra
+int binaryToDecimal(int binary) {
     int decimal = 0, rem = 0;
     int base = 2, power = 0;
 
@@ -58,6 +59,7 @@ int binaryToDecimal (int binary) {
         decimal += rem * pow(base, power);
         ++power;
     }
+
     return decimal;
 }
 
@@ -66,14 +68,14 @@ int main(int argc, char *argv[]) {
     char tmp[BlockSize], binaryArray[BlockSize];
     int input, output, array[BlockSize];
 
-    // valamelyik parancssori argumentum hiányzik
-    if(argc < 4) {
+    // ha valamelyik parancssori argumentum hiányzik
+    if (argc < 4) {
         write(2, " 1st argument: -t or -v\n 2nd argument: input file\n 3rd argument: output file\n", 77);
         return 1;
     } 
 
-    // az első nem -t vagy -v
-    if((strcmp(argv[1], "-t") != 0) && (strcmp(argv[1], "-v") != 0)) {
+    // az első parancssori argumentum nem -t vagy -v
+    if ((strcmp(argv[1], "-t") != 0) && (strcmp(argv[1], "-v") != 0)) {
         write(2, " 1st argumentum: -t or -v\n", 26);
         return 1;
     } 
@@ -81,35 +83,35 @@ int main(int argc, char *argv[]) {
     input = open(argv[2], O_RDONLY);
     output = open(argv[3], O_WRONLY|O_CREAT|O_TRUNC, S_IRUSR|S_IWUSR|S_IRGRP|S_IROTH);
 
-    // bemenet megnyitása nem sikerült
-    if(input < 0) {
+    // ha a bemenet megnyitása nem sikerült
+    if (input < 0) {
         write(2, "Input file is not found.\n", 25);
         return 1;
     }
 
     // ha a kimenet megnyitása/létrehozása nem sikerült
-    if(output < 0) {
+    if (output < 0) {
         write(2, "There is problem with the output.\n", 33);
     }
 
     // titkosítás
-    if(strcmp(argv[1], "-t") == 0) {
+    if (strcmp(argv[1], "-t") == 0) {
         file = fopen(argv[2], "r");
         file2 = fopen(argv[3], "w");
         fseek(file, 0, SEEK_END);
         int size = ftell(file);
         rewind(file);
 
-        for(int k = 0; k < size; k++) 
+        for (int k = 0; k < size; k++) 
             fread(tmp, 1, BlockSize, file);             
 
-        for(int l = 0; l < size - 1; l++) 
+        for (int l = 0; l < size - 1; l++) 
             array[l] = (int) tmp[l];    
 
         printf("TXT\tASCII\tBinary\t\tSwap\t\tAppended\n");
 
         int binaryNumber = 0;
-        for(int m = 0; m < size - 1; m++) {
+        for (int m = 0; m < size - 1; m++) {
             printf("%c\t%d\t", tmp[m], array[m]);
             printf("%d\t", binaryNumber = decimalToBinary(array[m]));
             char* swapped = swapBits(binaryNumber);
@@ -121,11 +123,11 @@ int main(int argc, char *argv[]) {
             strcpy(appended, swapped);
             
             int location = 1;
-            for(int n = 0; n < size; n++) {
+            for (int n = 0; n < size; n++) {
                 int number = rand()%2;
                 appended[n * 2] = swapped[n];
                 
-                if(n <= size - 1)
+                if (n <= size - 1)
                     appended[(n * 2) + 1] = number + '0';
             }
               
@@ -140,7 +142,7 @@ int main(int argc, char *argv[]) {
     }
 
     // visszafejtés
-    if(strcmp(argv[1], "-v") == 0) {
+    if (strcmp(argv[1], "-v") == 0) {
         file = fopen(argv[2], "r");
         file2 = fopen(argv[3], "w");
         fseek(file, 0, SEEK_END);
@@ -150,7 +152,7 @@ int main(int argc, char *argv[]) {
         printf("Delete\t\tUnswap\t\tDecimal\t\tASCII\tTXT\n");
 
         // random bájt eltávolítása minden bájt után
-        while(fgets(tmp, BlockSize, file)) {
+        while (fgets(tmp, BlockSize, file)) {
             char *delete = calloc(size/2, sizeof(char));
 
             for (size_t i = 0, j = 0; i < strlen(tmp) - 1; i+= 2) {
