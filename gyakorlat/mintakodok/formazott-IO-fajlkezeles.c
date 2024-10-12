@@ -1,15 +1,17 @@
 // Példa formázott fájlhasználatra
 
-#include<stdio.h>
+#include <stdio.h>
 
-int main() {
+int main()
+{
    int pos;
    char c, text[100];
    FILE *f;
 
    // Fájl megnyitása
    f = fopen("file.txt", "w+");
-   if (f == NULL) {
+   if (f == NULL)
+   {
       fprintf(stderr, " There is a file opening problem!\n");
       return 1;
    }
@@ -24,20 +26,21 @@ int main() {
    fscanf(stdin, "%d", &pos);
    fprintf(stdout, "  What is the new text? ");
    fscanf(stdin, "%s", text);
-   fseek(f, pos-1, SEEK_SET);
+   fseek(f, pos - 1, SEEK_SET);
    fprintf(f, "%s", text);
 
    // Fájl olvasása
    fprintf(stdout, " Now the file contetnt is:\n   ");
    fseek(f, 0, SEEK_SET);
 
-   while (1) {
+   while (1)
+   {
       fscanf(f, "%c", &c);
-      
-      if (feof(f)) 
+
+      if (feof(f))
          break;
-      
-      fprintf(stdout,"%c",c);
+
+      fprintf(stdout, "%c", c);
    }
 
    // Fájl bezárása

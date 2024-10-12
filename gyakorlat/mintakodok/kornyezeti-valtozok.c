@@ -6,15 +6,18 @@
 
 #define NoArg 1
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[])
+{
     char *var, *value;
 
-    if (argc == 1) {
+    if (argc == 1)
+    {
         printf(" %s: I need an argument. \n", argv[0]);
         return NoArg;
     }
 
-    if (argc == 2) {
+    if (argc == 2)
+    {
         var = argv[1];
         value = getenv(var);
 
@@ -24,11 +27,12 @@ int main(int argc, char* argv[]) {
             printf("$%s has no value\n", var);
     }
 
-    if (argc == 3) {
+    if (argc == 3)
+    {
         char *string;
         var = argv[1];
         value = argv[2];
-        string = (char*)malloc(strlen(var)+strlen(value)+ 2);
+        string = (char *)malloc(strlen(var) + strlen(value) + 2);
         strcpy(string, var);
         strcat(string, "=");
         strcat(string, value);

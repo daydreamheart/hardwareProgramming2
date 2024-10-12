@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-#if defined(linux) || defined(_linux) || defined(__linux__) || defined(__unix__) 
+#if defined(linux) || defined(_linux) || defined(__linux__) || defined(__unix__)
     #define OSTYPE 1
 #elif defined(_WIN32) || defined(_WINDOWS) || defined(__WINDOWS__)
     #define OSTYPE 2
@@ -14,9 +14,10 @@
     #define OSTYPE 0
 #endif
 
-int main() {
-    
-    switch(OSTYPE) {
+int main()
+{
+    switch (OSTYPE)
+    {
         case 1:
             printf("This is a Unix/Linux system.\n");
             break;
@@ -34,5 +35,4 @@ int main() {
     }
 
     return 0;
-    
 }
